@@ -7,134 +7,128 @@ import { db } from "../firebase/firebase_config";
 import { collection,addDoc,setDoc } from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import RegisterPopup from "./login_popup";
+import { useState } from "react";
+import PopupExample from "../popups/loggedInPopup";
+import Popup from "reactjs-popup";
 
 
-export class Register extends React.Component {
+
+function isEmpty(str) {
+    return !str.trim().length;
+}
+
+export function Register() {
     
-    constructor(props){
-        super(props);
-        this.state = {
-            registerEmail:'',
-            userName:'',
-            registerPassword:'',
-            confirmRegisterPassword:'',
-            confirmMessage:'',
-            userToken:'',
-        }
-    }
+
+    const [registerEmail,setRegisterEmail] = useState('');
+    const [firstName,setFirstName] = useState('');  
+    const [lastName,setLastName] = useState('');
+    const [registerPassword,setRegisterPassword] = useState('');
+    const [confirmRegisterPassword,setConfirmRegisterPassword] = useState('');
+    const [confirmMessage,setConfirmMessage] = useState('');
+    const [userToken,setUserToken] = useState('');
+    const [checkPasswordMatch,setPasswordMatch] = useState('');
 
 
+    const isEmpty = (str) => !str.trim().length;
 
-    addNewUserToDatabase = async(uid) => { 
+    const addNewUserToDatabase = async(uid) => { 
         try{
+            var today = new Date();
+            var registerDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
             console.log("here" + uid)
             console.log("adding to firestore")
-            console.log(this.state.userName)
+            console.log(firstName + " " + lastName)
             const docRef = await setDoc(doc(db,"users",uid),{
-                userName:this.state.userName,
-                email:this.state.registerEmail,
+                userId:uid,
+                firstName: firstName,
+                lastName: lastName,
+                email:registerEmail,
+                registerDate:registerDate
                 
             });
         }
         catch(error){
             console.log(error)
+            alert(error)
         }
     }
 
     
 
 
-    registerNewUser = async () => {
+    const registerNewUser = async () => {
         console.log("hello")
         try{
-          const user = await createUserWithEmailAndPassword(auth,this.state.registerEmail,this.state.registerPassword);
+          if(firstName == "" && lastName == "")throw("Please enter a valid name")
+          if(firstName == "")throw("Please enter a valid first name");
+          if(lastName == "")throw("Please enter a valid last name");
+          const user = await createUserWithEmailAndPassword(auth,registerEmail,registerPassword);
           console.log(user.user);
           console.log(user.user.email);
-          this.addNewUserToDatabase(user.user.uid);
+          addNewUserToDatabase(user.user.uid);
+          alert("Added new user. Please Login.")
         }
        catch(error){
          console.log(error.value)
+         alert(error)
        }
     }
 
+        /*const generatePopup = () => {
+        <Popup trigger={<button> Trigger</button>} position="right center">
+        <div>Popup content here !!</div>
+        </Popup>
+        }*/
 
 
-    checkConfirmPassword = (val) => {
-        if(this.state.registerPassword == this.state.confirmRegisterPassword){
-            console.log("password matches")
-            this.setState({
-                confirmMessage:"Password Matches",
-            })
+    const checkConfirmPassword = async (pass1,pass2) => {
+        if(pass1 == pass2){
+            setConfirmMessage("Passwords match")
         }
-        else
-            this.setState({
-                confirmMessage:"Passwords doesnt match"
-            })
+        else{
+            setConfirmMessage("Passwords do not match")
+        }
+        
     }
 
-
-
-    setConfirmRegisterPassword = (val) => {
-        this.setState({
-            confirmRegisterPassword:val,
-        })
-    }
-
-
-    setRegisterEmail = (registerEmail) => {
-        this.setState({
-            registerEmail:registerEmail,
-        })
-        console.log(registerEmail)
-    }
-
-    setRegisterPassword = (registerPassword) => {
-        this.setState({
-            registerPassword:registerPassword,
-        })
-        console.log(registerPassword)
-    }
-
-    setUserName = (userName) => {
-        this.setState({
-            userName:userName,
-        })
-        console.log(userName)
-    }
-
-    render(){
         
         return(         
-        
-                <div className="base-container" ref={this.props.containerRef}>
-                <div className="header">Register</div>
+                
+                <div className="base-container" >
+                <div className="header" style={{fontSize:50}}>Register</div>
                 <div className="content" style={{alignItems:"center"}}>
                 <img src = {loginImg} height="20%" width="20%" alt="hello"/>    
                 
                 <div className="form">
                     <div className="form-group">
-                        <label htmlFor="name">UserName</label>
-                        <input type = "text"  onChange={(event) => {this.setUserName(event.target.value)}} name = "username" placeholder="username"/>
+                        <label htmlFor="firstName">First Name</label>
+                        <input type = "text"  onChange={(event) => {setFirstName(event.target.value)}} name = "username" placeholder="First Name"/>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="lastNamee">Last Name</label>
+                        <input type = "text"  onChange={(event) => {setLastName(event.target.value)}} name = "username" placeholder="Last Name"/>
                     </div>
                     
 
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
-                        <input type = "email" name = "password" onChange={(event) => {this.setRegisterEmail(event.target.value)}} placeholder="password"/>
+                        <input type = "email" name = "email" onChange={(event) => {setRegisterEmail(event.target.value)}} placeholder="Email"/>
                     </div>
                     
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
-                        <input type = "password" name = "password" onChange={(event) => {this.setRegisterPassword(event.target.value)}} placeholder="password"/>
+                        <input type = "password" name = "password" onChange={(event) => {checkConfirmPassword(event.target.value,confirmRegisterPassword);setRegisterPassword(event.target.value);console.log(registerPassword)}} placeholder="Password"/>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="confirm-password">Confirm Password</label>
-                        <input type = "password" name = "password-confirm" onChange={(event) => {this.setConfirmRegisterPassword(event.target.value)}} placeholder="password"/>
+                        <input type = "password" name = "password-confirm" onChange={(event) => {checkConfirmPassword(event.target.value,registerPassword);setConfirmRegisterPassword(event.target.value)}} placeholder="Password"/>
                     </div>
-                    <div>{this.state.confirmMessage}</div>
+                    <div>{confirmMessage}</div>
                     <div className="footer">
-                    <button type = "button" className="btn" onClick={this.registerNewUser}>Register</button>
+                    <button type = "button" className="btn" onClick={registerNewUser}>Register</button>
                     </div>
 
                     <div>
@@ -144,5 +138,4 @@ export class Register extends React.Component {
                 </div>                
             </div>
         )
-    }
 }

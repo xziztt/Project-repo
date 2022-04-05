@@ -13,6 +13,7 @@
   }
 }
 
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -62,6 +63,17 @@
     padding: 17px 10px;
     //transition: transform 200ms ease-in-out;
   }
+
+.toggleText{
+  font-size: 20px;
+  color: gray;
+  font-weight: bold;
+  transition: all 250ms ease-in-out;
+  &:hover{
+    color: black;
+  }
+  
+}
 
 .btn {
   font-size: 21px;

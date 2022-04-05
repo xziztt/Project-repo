@@ -49,7 +49,9 @@ class App extends React.Component{
           <div className='container'>
             {isLoginActive && <Login containerRef = {(ref)=>this.current = ref}/> }
             {!isLoginActive && <Register containerRef = {(ref)=>this.current = ref}/> }
-            <ToggleLogin current = {current} containerRef = {ref => this.toggleLogin = ref} onClick = {this.changeState.bind(this)}></ToggleLogin>
+            <div className="toggleText" onClick = {this.changeState.bind(this)}>
+            <ToggleLogin current = {current} containerRef = {ref => this.toggleLogin = ref} ></ToggleLogin>
+            </div>
           </div>
           
         </div>
