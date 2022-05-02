@@ -1,18 +1,27 @@
 import './profile.css'
 import React from 'react';
 import {doc,getDoc,setDoc,updateDoc} from "firebase/firestore";
+import { onAuthStateChanged } from 'firebase/auth';
 import { db,storage } from '../firebase/firebase_config';
 import { useState,useEffect } from 'react';
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import {ref,uploadBytes,getDownloadURL} from "firebase/storage";
+import { useLocation } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase/firebase_config';
+import { useNavigate } from 'react-router-dom';
+import { ProgressBar } from 'react-bootstrap';
+import { NavBarLoggedIn } from '../navbar/navbar';
 
-const uid = "TrXyYhuFyYgx7usXE5ZCCffT0n82";
+const uidTest = "TrXyYhuFyYgx7usXE5ZCCffT0n82";
+const uidXd="2afkLHp76kUL0DfxNq6Z5iiqOtG2";
 
 
 export function ProfilePage() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    //const authToken = location.state.authToken;
 
-
-    var registerDate = "";
 
     const imageToBlob = async() => {
 
@@ -34,6 +43,15 @@ export function ProfilePage() {
         
     }
 
+
+    const logout = async() => {
+
+        signOut(auth).then(() => {
+            navigate("/new-login");
+        }).catch((error) => {
+            alert(error);
+        }); 
+    }
     //used to update new info if already exists info
     const updateUserInfo = async() => {
         try{
@@ -41,6 +59,7 @@ export function ProfilePage() {
             console.log("here no error")
             console.log(addressLine2)
             const user = await updateDoc(docRef,{
+                isProfileUpdated:"true",
                 userId:uid,
                 firstName: firstName,
                 lastName: lastName,
@@ -71,6 +90,7 @@ export function ProfilePage() {
             console.log(firstName + " " + lastName)
             const docRef = doc(db,"userInfo",uid);
             const user = await setDoc(docRef,{
+                isProfileUpdated:"true",
                 userId:uid,
                 firstName: firstName,
                 lastName: lastName,
@@ -94,7 +114,9 @@ export function ProfilePage() {
 
 
     //used to get data from the database
-    const getDataFromDatabase = async () => {
+    const getDataFromDatabase = async (uid) => {
+        console.log("loading data from database");
+
         const docRef = doc(db,"userInfo",uid);
         const docSnap = await getDoc(docRef);
         if(docSnap.exists()){
@@ -111,7 +133,7 @@ export function ProfilePage() {
             setCity(user.city);
             setCountry(user.country);
             setRegion(user.region);
-            registerDate=docSnap.data().registerDate;
+            setRegisterDate(user.registerDate);
             if(user.profileImageUrl != ""){
                 setProfileImageUrl(user.profileImageUrl);
             }
@@ -134,7 +156,7 @@ export function ProfilePage() {
     }
 
     //state variables
-
+    const [uid,setUid] = useState('');
     const [firstName,setFirstName] = useState('');
     const [lastName,setLastName] = useState('');
     const [userId,setUserId] = useState('');
@@ -148,17 +170,33 @@ export function ProfilePage() {
     const [pinCode,setPinCode] = useState('');
     const [profileImageUrl,setProfileImageUrl] = useState("https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg");
     const [profileImage,setProfileImage] = useState(null);
+    const [registerDate,setRegisterDate] = useState('');
 
 
 
     //useEffect used to trigger something on every re-render
     useEffect(() => {
-        getDataFromDatabase();
-        console.log("loaded");
-     },[]);//[] is the dependency array. since it is null, useEffect only exec first time
+        console.log("loading info")
+        onAuthStateChanged(auth, (user) => {
+        if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    console.log("user logged in");
+        const uid = user.uid;
+        console.log(uid);
+        setUid(uid);
+        getDataFromDatabase(uid);
+    // ...
+    } else {
+        console.log("Error");
+    }
+});
+     },[uid]);//[] is the dependency array. since it is null, useEffect only exec first time
     return (
-    
+        <div>
+            <NavBarLoggedIn></NavBarLoggedIn>
     <div  class="container rounded bg-white mt-5 mb-5 bodyDiv" >
+        
       <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"></link>
       <script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -196,10 +234,14 @@ export function ProfilePage() {
         <div class="col-md-4">
             <div class="p-3 py-5">
                 <div class="col-md-12"><label class="labels"></label>Topics Covered: </div> <br/>
+                <ProgressBar now={60} />
+                <div class="col-md-12"><label class="labels"></label>Date Registered: <span style={{fontWeight:""}}>{registerDate}</span> </div><br/>
                 <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""/></div>
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" onClick={()=>logout()}>Logout</button></div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 );

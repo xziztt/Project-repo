@@ -5,7 +5,7 @@ import {Login,Register} from "./components/login";
 import { Link } from 'react-router-dom';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import loggedIn from './routes/loggedIn';
-
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 
 

@@ -6,9 +6,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { db } from "../firebase/firebase_config";
 import { collection,addDoc,setDoc } from "firebase/firestore";
 import { doc } from "firebase/firestore";
-import RegisterPopup from "./login_popup";
 import { useState } from "react";
-import PopupExample from "../popups/loggedInPopup";
 import Popup from "reactjs-popup";
 
 
@@ -28,14 +26,43 @@ export function Register() {
     const [confirmMessage,setConfirmMessage] = useState('');
     const [userToken,setUserToken] = useState('');
     const [checkPasswordMatch,setPasswordMatch] = useState('');
+    
 
+    const addNewUserInfoToDatabase = async(uid,registerDate) => { 
+        try{
+            console.log("here" + uid)
+            console.log("adding to firestore")
+            console.log(firstName + " " + lastName)
+            const docRef = doc(db,"userInfo",uid);
+            const user = await setDoc(docRef,{
+                userId:uid,
+                firstName: firstName,
+                lastName: lastName,
+                email:registerEmail,
+                phoneNumber:'',
+                addressLine1:'',
+                addressLine2:'',
+                city:'',
+                pinCode:'',
+                region:'',
+                country:'',     
+                registerDate:registerDate           
+            });
+            console.log(user.user)
+            
+        }
+        catch(error){
+            console.log(error)
+            //alert(error)
+        }
+    }
 
     const isEmpty = (str) => !str.trim().length;
 
     const addNewUserToDatabase = async(uid) => { 
         try{
             var today = new Date();
-            var registerDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            var registerDate = today.getDate() + '-' + (today.getMonth() + 1) + '-' + (today.getFullYear())
             console.log("here" + uid)
             console.log("adding to firestore")
             console.log(firstName + " " + lastName)
@@ -47,6 +74,7 @@ export function Register() {
                 registerDate:registerDate
                 
             });
+            addNewUserInfoToDatabase(uid,registerDate);
         }
         catch(error){
             console.log(error)

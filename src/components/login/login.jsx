@@ -2,7 +2,7 @@ import React from "react";
 import loginImg from "../../images/login.jpg";
 import './style.scss'
 import { auth } from "../firebase/firebase_config";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword,sendEmailVerification } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { useNavigate,useLocation,useParams } from "react-router-dom";
 import { useState } from "react";
