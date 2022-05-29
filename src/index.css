@@ -20,14 +20,3 @@ NavBar{
   border: 3px solid #73AD21;
 }
 
-.navbar {
-  display: flex;
-  position: sticky ;
-  top:0;
-  width: 100%;
-  background: rebeccapurple;
-  margin-bottom: 120px;
-  color: white;
-  font-family: Helvetica;
-  font-weight: 300;
-}

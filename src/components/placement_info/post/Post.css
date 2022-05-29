@@ -1,0 +1,24 @@
+
+.post-container {
+    background: white;
+    display: flex;
+    height: 500px;
+    width: 100%;
+    flex-direction: column;
+    padding: 3%;
+    margin: 0 2%;
+}
+
+.heading {
+    height: 126px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+.image {
+    width: 100%;
+    height: 210px;
+}
+.info{
+    padding-top: 10px;
+}

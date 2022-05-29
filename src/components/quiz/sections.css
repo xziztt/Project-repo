@@ -220,8 +220,11 @@ Cards
      max-height: 20000px;
      text-align: center;
      height: 200px;
+     background-color: white;
 }
-
+.card-buttons{
+     padding-bottom: 10px;
+}
 .card-deck {
 
      display: table-cell;

@@ -15,6 +15,9 @@ import { auth } from './components/firebase/firebase_config';
 import SelectionsGrid from './components/quiz/sectionsGrid';
 import HomePage from './components/homepage/homepage';
 import AddNewQuestion from './components/quiz/addNewQuestion'
+import PlacementInfo from './components/placement_info/placement_info';
+import AddNewPlacement from './components/placement_info/addNewPlacement';
+import Dbms from './components/static_content/dbms/Dbms';
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
@@ -26,6 +29,10 @@ ReactDOM.render(
       <Route path="/sections" element={<SelectionsGrid/>}/>
       <Route path="/home" element={<HomePage/>}/>
       <Route path="/add-new" element={<AddNewQuestion/>}/>
+      <Route path="/home" element={<HomePage/>}/>
+      <Route path="/placements" element={<PlacementInfo/>}/>
+      <Route path="/placements/add-new" element={<AddNewPlacement/>}/>
+      <Route path="/dbms" element={<Dbms/>}/>
     </Routes>
   </BrowserRouter>,
   document.getElementById('root')

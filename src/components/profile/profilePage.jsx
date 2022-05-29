@@ -18,6 +18,10 @@ const uidXd="2afkLHp76kUL0DfxNq6Z5iiqOtG2";
 
 
 export function ProfilePage() {
+
+    
+
+
     const navigate = useNavigate();
     const location = useLocation();
     //const authToken = location.state.authToken;
@@ -112,7 +116,6 @@ export function ProfilePage() {
         }
     }
 
-
     //used to get data from the database
     const getDataFromDatabase = async (uid) => {
         console.log("loading data from database");
@@ -134,6 +137,9 @@ export function ProfilePage() {
             setCountry(user.country);
             setRegion(user.region);
             setRegisterDate(user.registerDate);
+            setPathFindingProgress(user.pathfinding);
+            setSortingProgress(user.sorting);
+            setSearchingProgress(user.searching);
             if(user.profileImageUrl != ""){
                 setProfileImageUrl(user.profileImageUrl);
             }
@@ -171,6 +177,9 @@ export function ProfilePage() {
     const [profileImageUrl,setProfileImageUrl] = useState("https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg");
     const [profileImage,setProfileImage] = useState(null);
     const [registerDate,setRegisterDate] = useState('');
+    const [pathFindingProgress,setPathFindingProgress] = useState(0);
+    const [searchingProgress,setSearchingProgress] = useState(0);
+    const [sortingProgress,setSortingProgress] = useState(0);
 
 
 
@@ -191,7 +200,7 @@ export function ProfilePage() {
         console.log("Error");
     }
 });
-     },[uid]);//[] is the dependency array. since it is null, useEffect only exec first time
+     },[uid,searchingProgress]);//[] is the dependency array. since it is null, useEffect only exec first time
     return (
         <div>
             <NavBarLoggedIn></NavBarLoggedIn>
@@ -234,7 +243,12 @@ export function ProfilePage() {
         <div class="col-md-4">
             <div class="p-3 py-5">
                 <div class="col-md-12"><label class="labels"></label>Topics Covered: </div> <br/>
-                <ProgressBar now={60} />
+                <ProgressBar label="Pathfinding"  now={pathFindingProgress} />
+                <br></br>
+                <ProgressBar label="sorting" now = {sortingProgress} />
+                <br></br>
+                <ProgressBar label = "searching" now={searchingProgress} />
+                <br></br>
                 <div class="col-md-12"><label class="labels"></label>Date Registered: <span style={{fontWeight:""}}>{registerDate}</span> </div><br/>
                 <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""/></div>
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" onClick={()=>logout()}>Logout</button></div>

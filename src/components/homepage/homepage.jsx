@@ -12,8 +12,8 @@ export default function HomePage(){
         alt: "Sorting image"
     }, {
         title: "Pathfinding Algorithms",
-        link: "./templates/pathfinding.html",
-        image: "./img/pathfinding.gif",
+        link: "",
+        image: "file:///D:/dev/Viggy/Algorithms-Visualization/templates/pathfinding.html",
         alt: "Pathfinding image"
     }, {
         title: "Searching Algorithms",
@@ -35,7 +35,7 @@ export default function HomePage(){
                             <h2>{cards[0].title}</h2>
                         </div>
                         <div className="card-buttons">
-                            <button className="btn-danger"><a href={cards[0].link}>Visualize</a></button>
+                            <button className="btn-danger"><a href="">Visualize</a></button>
                         </div>
                     </div>
                 <br/>
@@ -45,13 +45,13 @@ export default function HomePage(){
     </div>
     <div className="card-deck">
             <div className="card">
-                        <a href={cards[1].link}><img className="card-image" src={pathFindingLogo} alt={cards[1].alt}/></a>
+                        <a href=""><img className="card-image" src={pathFindingLogo} alt={cards[1].alt}/></a>
                         <div className="new-container">
                         <div className="card-title">
                             <h2>{cards[1].title}</h2>
                         </div>
                         <div className="card-buttons">
-                            <button className="btn-danger"><a href={cards[1].link}>Visualize</a></button>
+                            <button className="btn-danger"><a href="http://127.0.0.1:8080/templates/pathfinding.html">Visualize</a></button>
                         </div>
                     </div>
                 <br/>
@@ -67,7 +67,7 @@ export default function HomePage(){
                             <h2>{cards[2].title}</h2>
                         </div>
                         <div className="card-buttons">
-                            <button className="btn-danger"><a href={cards[2].link}>Visualize</a></button>
+                            <button className="btn-danger"><a href="http://127.0.0.1:8080/templates/searching.html">Visualize</a></button>
                         </div>
                     </div>
                 <br/>

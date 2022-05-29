@@ -7,10 +7,11 @@ export default function LoggedIn(state){
     console.log(location.state) 
 
     return(
-
-        <div>
+        <div style={{width:"100%",display:"flex",flexDirection:"column"}}>
             <NavBarLoggedIn></NavBarLoggedIn>
+        <div style={{width:"100px"}}>
             User with the userID: {location.state.userId} has been logged In with the token {location.state.authToken}
+        </div>
         </div>
     )
 }

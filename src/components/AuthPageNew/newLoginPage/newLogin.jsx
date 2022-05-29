@@ -5,7 +5,7 @@ import 'reactjs-popup/dist/index.css';
 import { useEffect,useRef,useState } from "react";
 import {db,auth} from '../../firebase/firebase_config'
 import { doc } from "firebase/firestore";
-import { createUserWithEmailAndPassword,signInWithEmailAndPassword,sendEmailVerification,sendPasswordResetEmail } from "firebase/auth";
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword,sendEmailVerification,sendPasswordResetEmail, updateProfile } from "firebase/auth";
 import { collection,addDoc,setDoc,getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { async } from "@firebase/util";
@@ -27,7 +27,18 @@ export function UpdatedLoginPage(){
 
   const navigate = useNavigate();
   
-  
+  const updateUserProfileFirebase = (name,pfp) => {
+    updateProfile(auth.currentUser, {
+        displayName: name, photoURL: "https://example.com/jane-q-user/profile.jpg"
+      }).then(() => {
+        // Profile updated!
+        // ...
+      }).catch((error) => {
+        // An error occurred
+        // ...
+      });
+      console.log("added user name and pic to firebase");
+  }
   const resetHandler = async () => {
     try{
         if(loginEmail == ''){
@@ -145,7 +156,10 @@ export function UpdatedLoginPage(){
               pinCode:'',
               region:'',
               country:'',     
-              registerDate:registerDate,           
+              registerDate:registerDate,
+              pathfinding:0,
+              sorting:0,
+              searching:0,           
           });
           console.log(user.user)
           
@@ -173,6 +187,7 @@ export function UpdatedLoginPage(){
               registerDate:registerDate
               
           });
+          updateUserProfileFirebase(firstName,'');
           addNewUserInfoToDatabase(uid,registerDate);
       }
       catch(error){

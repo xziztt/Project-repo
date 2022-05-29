@@ -10,7 +10,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { getDocs } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { isAdmin } from "@firebase/util";
 import { auth } from "../firebase/firebase_config";
 
 
@@ -19,26 +18,26 @@ export default function SelectionsGrid(){
     const [uid,setUid] = useState('');
     let adminOnly = <div></div>
 
-
+    const [isAdmin,setIsAdmin] = useState(false);
+    const [userId,setUserId] = useState('');
     const checkLogin = async () => {
 
     }
 
 
     const checkIfAdmin = async (uid) => {
-
-
         console.log("loading data from database");
-        let isAdmin = "false";
         const docRef = doc(db,"userInfo",uid);
         const docSnap = await getDoc(docRef);
         if(docSnap.exists()){
             const user = docSnap.data();
+            setUserId(user.userId);
             console.log(user);
             if(user.isAdmin == "true"){
-                isAdmin = "true";
+                setIsAdmin(true);
                 console.log("admin");
-                    adminOnly = `<div className="card-deck">
+                console.log(isAdmin);
+                  /*  adminOnly = `<div className="card-deck">
                 <div className="card">
                             <a href={cards[2].link}><img className="card-image" src={searchingLogo} alt={cards[2].alt}/></a>
                             <div className="new-container">
@@ -53,11 +52,12 @@ export default function SelectionsGrid(){
                 </div>
     
         </div>`
-
+*/
         console.log(adminOnly);
             }
             else{
                 console.log("not admin");
+                console.log(isAdmin);
             }
         }
         else{
@@ -73,13 +73,16 @@ export default function SelectionsGrid(){
     const handleQuiz = async (sid) => {
         let quizArray = [];
         console.log(sid);
-        let answerOptions = [];
+        
         let temp = {}
         const querySnapshot = await getDocs(collection(db, sid));
         querySnapshot.forEach(element => {
+            let answerOptions = [];
             let text = element.data();
             const question = text.questionText;
             const answers = text.answerOptions[0];
+            console.log("this is answeroptions[o]");
+            console.log(answers);
             Object.keys(answers).forEach(element=>{
 
                 let answerObj = {
@@ -100,6 +103,8 @@ export default function SelectionsGrid(){
 
         navigate("/quiz",{state:{
             quizArray: quizArray,
+            sid:sid,
+            userId:userId,
         }});
     }
 
@@ -122,7 +127,7 @@ export default function SelectionsGrid(){
         image: "./img/avl.gif",
         alt: "Searching image"
     },{
-        title: "Add questions",
+        title: "Add New questions",
         link: "./templates/searching.html",
         image: "./img/avl.gif",
         alt: "Add Questions"
@@ -178,13 +183,13 @@ export default function SelectionsGrid(){
     <body>
     <div className="card-deck">
             <div className="card">
-                        <a href={cards[0].link}><img className="card-image" src={sortLogo} alt={cards[0].alt}/></a>
+                        <a ><img className="card-image" src={sortLogo} alt={cards[0].alt}/></a>
                         <div className="new-container">
                         <div className="card-title">
                             <h2>{cards[0].title}</h2>
                         </div>
                         <div className="card-buttons">
-                            <button onClick={() => handleQuiz("pathfinding")} className="btn-danger">Attempt</button>
+                            <button onClick={() => handleQuiz("sorting")} className="btn-danger">Attempt</button>
                         </div>
                     </div>
                 <br/>
@@ -194,13 +199,13 @@ export default function SelectionsGrid(){
     </div>
     <div className="card-deck">
             <div className="card">
-                        <a href={cards[1].link}><img className="card-image" src={pathFindingLogo} alt={cards[1].alt}/></a>
+                        <a><img className="card-image" src={pathFindingLogo} alt={cards[1].alt}/></a>
                         <div className="new-container">
                         <div className="card-title">
                             <h2>{cards[1].title}</h2>
                         </div>
                         <div className="card-buttons">
-                            <button className="btn-danger"><a href={cards[1].link}>Attempt</a></button>
+                            <button className="btn-danger" onClick={() => handleQuiz("pathfinding")}>Attempt</button>
                         </div>
                     </div>
                 <br/>
@@ -210,13 +215,13 @@ export default function SelectionsGrid(){
     </div>
         <div className="card-deck">
             <div className="card">
-                        <a href={cards[2].link}><img className="card-image" src={searchingLogo} alt={cards[2].alt}/></a>
+                        <a><img className="card-image" src={searchingLogo} alt={cards[2].alt}/></a>
                         <div className="new-container">
                         <div className="card-title">
                             <h2>{cards[2].title}</h2>
                         </div>
                         <div className="card-buttons">
-                            <button className="btn-danger"><a href={cards[2].link}>Attempt</a></button>
+                            <button className="btn-danger" onClick={() => handleQuiz("searching")}>Attempt</button>
                         </div>
                     </div>
                 <br/>
@@ -227,7 +232,7 @@ export default function SelectionsGrid(){
 
     <div className="card-deck">
             <div className="card">
-                        <a href={cards[2].link}><img className="card-image" src={searchingLogo} alt={cards[2].alt}/></a>
+                        <a><img className="card-image" src={searchingLogo} alt={cards[2].alt}/></a>
                         <div className="new-container">
                         <div className="card-title">
                             <h2>{cards[2].title}</h2>
@@ -245,13 +250,13 @@ export default function SelectionsGrid(){
 
     {isAdmin?<div className="card-deck">
                 <div className="card">
-                            <a href={cards[2].link}><img className="card-image" src={searchingLogo} alt={cards[2].alt}/></a>
+                            <a><img className="card-image" src={searchingLogo} alt={cards[3].alt}/></a>
                             <div className="new-container">
                             <div className="card-title">
-                                <h2>{cards[2].title}</h2>
+                                <h2>{cards[3].title}</h2>
                             </div>
                             <div className="card-buttons">
-                                <button className="btn-danger" onClick={() => handleEdit()}>Attempt</button>
+                                <button className="btn-danger" onClick={() => handleEdit()}>Add New</button>
                             </div>
                         </div>
                     <br/>
