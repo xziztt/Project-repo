@@ -22,11 +22,12 @@ h1 {
     margin: 0;
 }
 
-p {
+.thisPara {
     font-size: 14px;
     font-weight: 100;
     line-height: 20px;
     letter-spacing: .5px;
+    color: white;
     margin: 20px 0 30px;
 }
 

@@ -105,7 +105,12 @@ export function ProfilePage() {
                 city:city,
                 pinCode:pinCode,
                 region:region,
-                country:country,                
+                country:country,
+                os:0,  
+                dbms:0,
+                pathfinding:0,
+                sorting:0,
+                searching:0,              
             });
             console.log(user.user)
             
@@ -140,6 +145,8 @@ export function ProfilePage() {
             setPathFindingProgress(user.pathfinding);
             setSortingProgress(user.sorting);
             setSearchingProgress(user.searching);
+            setdbmsProgress(user.dbms);
+            setosProgress(user.os);
             if(user.profileImageUrl != ""){
                 setProfileImageUrl(user.profileImageUrl);
             }
@@ -180,6 +187,8 @@ export function ProfilePage() {
     const [pathFindingProgress,setPathFindingProgress] = useState(0);
     const [searchingProgress,setSearchingProgress] = useState(0);
     const [sortingProgress,setSortingProgress] = useState(0);
+    const [osProgress,setosProgress] = useState(0);
+    const [dbmsProgress,setdbmsProgress] = useState(0);
 
 
 
@@ -248,6 +257,10 @@ export function ProfilePage() {
                 <ProgressBar label="sorting" now = {sortingProgress} />
                 <br></br>
                 <ProgressBar label = "searching" now={searchingProgress} />
+                <br></br>
+                <ProgressBar label = "OS" now={osProgress} />
+                <br></br>
+                <ProgressBar label = "DBMS" now={dbmsProgress} />
                 <br></br>
                 <div class="col-md-12"><label class="labels"></label>Date Registered: <span style={{fontWeight:""}}>{registerDate}</span> </div><br/>
                 <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""/></div>

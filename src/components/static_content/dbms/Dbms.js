@@ -6,9 +6,9 @@ const Dbms = () => {
     return (
             <div id="about" className="container-fluid">
                     <div className="contents">
-                        <h2>Database Management System (DBMS)</h2><br />
+                        <h2 className='head2'>Database Management System (DBMS)</h2><br />
                         <section id="Database">
-                         <h4><strong>What is a Database?</strong></h4>
+                         <h4 className='head4'><strong>What is a Database?</strong></h4>
                          <p>
                          Database is a colection of inter-related data which helps in efficient retrieval,insertion and
                          deletion of data from database and organizes the data in the form of tables, views, schemas, reports 
@@ -18,7 +18,7 @@ const Dbms = () => {
                          </p><br />
                         </section>
                         <section id="Features">
-                        <h4><strong>Features</strong></h4> 
+                        <h4 className='head4'><strong>Features</strong></h4> 
                          <p>The software which is used to manage database is called Database Management System (DBMS). For Example, MySQL, Oracle etc. are popular commercial DBMS used in different applications. DBMS allows users the following tasks:<br/>
                          <ul>
                          <li><strong>Data Definition:</strong> It helps in creation, modification and removal of definitions that define the organization of data in database.
@@ -30,7 +30,7 @@ const Dbms = () => {
                        </section> 
 
                        <section id="Why">
-                       <h4><strong>Why DBMS?</strong></h4>
+                       <h4 className='head4'><strong>Why DBMS?</strong></h4>
                        <p>
                        File System manages data using files in hard disk. Users are allowed to create, delete, and update the files according to their requirement.
                        Let us consider the example of file based University Management System. Data of students is available to their respective Departments, Academics Section,
@@ -55,7 +55,7 @@ const Dbms = () => {
                        </section>
 
                         <section id="Architecture">
-                            <h4><strong>3-Level Architecture</strong></h4>
+                            <h4 className='head4'><strong>3-Level Architecture</strong></h4>
                             <p>
                             DBMS 3-level architecture divides the complete system into three inter-related but independent modules as shown below:
                             <ul>

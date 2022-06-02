@@ -46,44 +46,51 @@ function ContactForm(){
   }
 
     const handleFormSubmit = () => {
+      try{
+        let ansArray = [];
+        var obj = new Object()
+        var aobj = new Object()
+  
+        obj.questionText = question;
+        if(option1 == correctOption){
+          aobj[option1] = true;
+          console.log("1");
+        }
+        else{
+          aobj[option1] = false;
+        }
+        if(option2 == correctOption){
+          aobj[option2] = true;
+          console.log("2");
+        }
+        else{
+          aobj[option2] = false;
+        }
+        if(option3 == correctOption){
+          aobj[option3] = true;
+          console.log("3");
+        }
+        else{
+          aobj[option3] = false;
+        }
+        if(option4 == correctOption){
+          aobj[option4] = true;
+          console.log("4");
+        }
+        else{
+          aobj[option4] = false;
+        }
+        ansArray.push(aobj);
+        obj.answerOptions = ansArray;
+        console.log(obj);
+        addNewQuestionToDB(section,obj).then(()=>{
+          alert("Added successfully");
+        });
+      }
+      catch(error){
+        alert(error);
+      }
 
-      let ansArray = [];
-      var obj = new Object()
-      var aobj = new Object()
-
-      obj.questionText = question;
-      if(option1 == correctOption){
-        aobj[option1] = true;
-        console.log("1");
-      }
-      else{
-        aobj[option1] = false;
-      }
-      if(option2 == correctOption){
-        aobj[option2] = true;
-        console.log("2");
-      }
-      else{
-        aobj[option2] = false;
-      }
-      if(option3 == correctOption){
-        aobj[option3] = true;
-        console.log("3");
-      }
-      else{
-        aobj[option3] = false;
-      }
-      if(option4 == correctOption){
-        aobj[option4] = true;
-        console.log("4");
-      }
-      else{
-        aobj[option4] = false;
-      }
-      ansArray.push(aobj);
-      obj.answerOptions = ansArray;
-      console.log(obj);
-      addNewQuestionToDB(section,obj);
     }
       
       return (
@@ -100,6 +107,8 @@ function ContactForm(){
         <option value="pathfinding">PathFinding</option>
         <option value="searching">Searching</option>
         <option value="sorting">Sorting</option>
+        <option value="dbms">DBMS</option>
+        <option value="os">OS</option>
       </select>
 
       </div>

@@ -1,5 +1,5 @@
 
-h2 {
+.head2 {
   font-size: 24px;
   text-transform: uppercase;
   color: #303030;
@@ -10,7 +10,7 @@ p {
   font-size: medium;
   color :#303030;
 }
-h4 {
+.head4 {
   font-size: 19px;
   line-height: 1.375em;
   color: #303030;

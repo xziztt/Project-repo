@@ -3,6 +3,8 @@ import './sections.css';
 import sortLogo from './img/sort2.gif';
 import pathFindingLogo from "./img/pathfinding.gif";
 import searchingLogo from "./img/avl.gif";
+import dbmsLogo from "./img/database.gif";
+import osLogo from "./img/os.gif";
 import { NavBarLoggedIn } from "../navbar/navbar";
 import { db } from "../firebase/firebase_config";
 import { getDoc,doc } from "firebase/firestore";
@@ -132,6 +134,19 @@ export default function SelectionsGrid(){
         image: "./img/avl.gif",
         alt: "Add Questions"
     },
+    {
+        title: "DBMS",
+        link: "./templates/searching.html",
+        image: "./img/database.gif",
+        alt: "DBMS image"
+    },
+
+    {
+        title: "Operating Systems",
+        link: "./templates/searching.html",
+        image: "./img/os.gif",
+        alt: "OS image"
+    },
 
 ];
 
@@ -180,7 +195,7 @@ export default function SelectionsGrid(){
     return(
         <div>
     <NavBarLoggedIn></NavBarLoggedIn>
-    <body>
+    <body className="thisBody">
     <div className="card-deck">
             <div className="card">
                         <a ><img className="card-image" src={sortLogo} alt={cards[0].alt}/></a>
@@ -192,6 +207,9 @@ export default function SelectionsGrid(){
                             <button onClick={() => handleQuiz("sorting")} className="btn-danger">Attempt</button>
                         </div>
                     </div>
+                <br/>
+                <br/>
+                <br/>
                 <br/>
             </div>
     
@@ -211,7 +229,7 @@ export default function SelectionsGrid(){
                 <br/>
             </div>
     
-
+            <br></br>
     </div>
         <div className="card-deck">
             <div className="card">
@@ -229,22 +247,45 @@ export default function SelectionsGrid(){
     
 
     </div>
-
+    
     <div className="card-deck">
             <div className="card">
-                        <a><img className="card-image" src={searchingLogo} alt={cards[2].alt}/></a>
+                        <a><img className="card-image" src={dbmsLogo} alt={cards[5].alt}/></a>
                         <div className="new-container">
                         <div className="card-title">
-                            <h2>{cards[2].title}</h2>
+                            <h2>{cards[4].title}</h2>
                         </div>
                         <div className="card-buttons">
-                            <button className="btn-danger"><a href={cards[2].link}>Attempt</a></button>
+                            <button className="btn-danger" onClick={() => handleQuiz("dbms")}>Attempt</button>
                         </div>
                     </div>
                 <br/>
             </div>
+    
 
     </div>
+
+    <div className="card-deck">
+            <div className="card">
+                        <a><img className="card-image" src={osLogo} alt={cards[5].alt}/></a>
+                        <div className="new-container">
+                        <div className="card-title">
+                            <div>
+                            <h2>{cards[5].title}</h2>
+                            </div>
+                            
+                        </div>
+                        <div className="card-buttons">
+                            <button className="btn-danger" onClick={() => handleQuiz("os")}>Attempt</button>
+                        </div>
+                    </div>
+                <br/>
+            </div>
+    
+
+    </div>
+
+
 
     
 

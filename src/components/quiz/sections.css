@@ -8,15 +8,18 @@
      font-family: 'Poppins', sans-serif;
 }
 
-body {
-     background: #f2f2f2;
-     display: table;
+.thisBody {
+     margin-left: 100px;
+     align-items: flex-start;
+     background: white;
+     display: flex;
+     flex-flow: row wrap;
      width: 100%;
      
 }
 
 a {
-     color: #fff;
+     color: white;
      text-decoration: none;
 }
 
@@ -226,9 +229,10 @@ Cards
      padding-bottom: 10px;
 }
 .card-deck {
+     flex: 0 32%;
 
      display: table-cell;
-     color: red;
+     color: white;
      justify-content: center;
      
 }
@@ -250,7 +254,8 @@ Cards
 .card-title {
      margin: 5 auto;
      line-height: 50px;
-     padding-bottom:10px
+     padding-bottom:10px;
+     width: 100%;
 }
 
 .card-image {
@@ -295,4 +300,7 @@ Cards
      padding: 5px 15px;
      border-radius: 4px;
      cursor: pointer;
+}
+a{
+     background-color: white;
 }

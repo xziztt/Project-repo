@@ -8,17 +8,17 @@
      font-family: 'Poppins', sans-serif;
 }
 
-body {
+
+thisBody {
+
+     align-items: flex-start;
      background: #f2f2f2;
-     display: table;
+     display: flex;
+     flex-flow: row wrap;
      width: 100%;
      
 }
 
-a {
-     color: #fff;
-     text-decoration: none;
-}
 
 nav {
      background: #1b1b1b;
@@ -220,6 +220,7 @@ Cards
      max-height: 20000px;
      text-align: center;
      height: 200px;
+     background-color: white;
 }
 
 .card-deck {
