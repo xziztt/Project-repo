@@ -6,20 +6,29 @@ import searchingLogo from "./img/avl.gif";
 import { NavBarLoggedIn } from "../navbar/navbar";
 import DBMSLogo from './img/database.gif';
 import OSLogo from './img/os.gif';
+import { useNavigate } from "react-router-dom";
 export default function HomePage(){
+
+    const navigate = useNavigate();
+    const handleTapStaticContent = (id) => {
+        navigate("/" + {id});
+    }
+
+
+
     let cards = [{
         title: "Sorting Algorithms",
-        link: "http://localhost:5555/sorting-visualizer",
+        link: "./sorting",
         image: "./img/sort2.gif",
         alt: "Sorting image"
     }, {
         title: "Pathfinding Algorithms",
-        link: "",
+        link: "./pathfinding",
         image: "file:///D:/dev/Viggy/Algorithms-Visualization/templates/pathfinding.html",
         alt: "Pathfinding image"
     }, {
         title: "Searching Algorithms",
-        link: "./templates/searching.html",
+        link: "./searching",
         image: "./img/avl.gif",
         alt: "Searching image"
     }, {
@@ -64,7 +73,7 @@ export default function HomePage(){
                             <h2>{cards[1].title}</h2>
                         </div>
                         <div className="card-buttons">
-                            <button className="btn-danger"><a className="homeAnchor" href="http://127.0.0.1:8080/templates/pathfinding.html">Visualize</a></button>
+                            <button className="btn-danger"><a className="homeAnchor" href={cards[1].link}>Visualize</a></button>
                         </div>
                     </div>
                 <br/>
@@ -80,7 +89,7 @@ export default function HomePage(){
                             <h2>{cards[2].title}</h2>
                         </div>
                         <div className="card-buttons">
-                            <button className="btn-danger"><a className="homeAnchor" href="http://127.0.0.1:8080/templates/searching.html">Visualize</a></button>
+                            <button className="btn-danger"><a className="homeAnchor" href={cards[2].link}>Visualize</a></button>
                         </div>
                     </div>
                 <br/>

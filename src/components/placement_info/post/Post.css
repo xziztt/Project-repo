@@ -2,15 +2,23 @@
 .post-container {
     background: white;
     display: flex;
+    align-content: center;
+    align-items: center;
     height: 500px;
     width: 100%;
     flex-direction: column;
     padding: 3%;
     margin: 0 2%;
 }
+.registerContainer{
+    font-weight: bold;
+    font-size: 25px;
 
+    
+}
 .heading {
     height: 126px;
+    font-weight: bolder;
     text-align: center;
     display: flex;
     align-items: center;

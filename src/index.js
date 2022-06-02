@@ -18,6 +18,10 @@ import AddNewQuestion from './components/quiz/addNewQuestion'
 import PlacementInfo from './components/placement_info/placement_info';
 import AddNewPlacement from './components/placement_info/addNewPlacement';
 import Dbms from './components/static_content/dbms/Dbms';
+import Os from './components/static_content/os/os';
+import Paths from './components/static_content/pathfinding/pathfinding';
+import Sort from './components/static_content/sorting/Sorting'
+import Searching from './components/static_content/searching/searching';
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
@@ -33,6 +37,10 @@ ReactDOM.render(
       <Route path="/placements" element={<PlacementInfo/>}/>
       <Route path="/placements/add-new" element={<AddNewPlacement/>}/>
       <Route path="/dbms" element={<Dbms/>}/>
+      <Route path="/pathfinding" element={<Paths/>}/>
+      <Route path="/sorting" element={<Sort/>}/>
+      <Route path="/os" element={<Os/>}/>
+      <Route path="/searching" element={<Searching/>}/>
     </Routes>
   </BrowserRouter>,
   document.getElementById('root')

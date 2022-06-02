@@ -159,7 +159,9 @@ export function UpdatedLoginPage(){
               registerDate:registerDate,
               pathfinding:0,
               sorting:0,
-              searching:0,           
+              searching:0,
+              dbms:0,
+              os:0,           
           });
           console.log(user.user)
           

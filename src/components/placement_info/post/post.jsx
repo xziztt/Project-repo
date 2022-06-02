@@ -14,8 +14,8 @@ const Post = ({ post: { link,image,info,title }, index }) => {
         <p>{info}</p>
       </div>
 
-      <div>      
-        <a style={{color:"black"}} href="hello"><h4>{link}</h4></a>
+      <div className="linkContainer">      
+        <a  style={{color:"black"}} href={link}><h4 className="registerContainer">Click here to register</h4></a>
       </div>
     </div>
   );
